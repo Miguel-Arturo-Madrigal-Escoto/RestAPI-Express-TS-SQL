@@ -8,8 +8,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.deleteUsers = exports.putUsers = exports.postUsers = exports.getUsers = void 0;
+exports.deleteUsers = exports.putUsers = exports.addUser = exports.getUsers = void 0;
+const user_1 = __importDefault(require("../models/user"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({
         ok: true,
@@ -17,13 +21,25 @@ const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     });
 });
 exports.getUsers = getUsers;
-const postUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        ok: true,
-        msg: req.body
-    });
+const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    try {
+        /*const usuario = User.build(req.body);
+        await usuario.save();*/
+        const usuario = yield user_1.default.create(req.body);
+        usuario.validate();
+        res.status(201).json({
+            ok: true,
+            usuario
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            ok: true,
+            errors: error.errors.map((e) => ({ message: e.message, path: e.path }))
+        });
+    }
 });
-exports.postUsers = postUsers;
+exports.addUser = addUser;
 const putUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     res.json({
         ok: true,

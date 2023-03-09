@@ -1,6 +1,7 @@
 import express, { Application, json } from 'express';
 import cors from 'cors';
 import userRouter from '../routes/user';
+import sequelize from '../database/config';
 
 class Server {
     private app: Application;
@@ -13,9 +14,20 @@ class Server {
         this.app  = express();
         this.port = process.env.PORT!;
 
+        this.dbConnection();
+
         this.middlewares();
 
         this.routes();
+    }
+
+    private dbConnection = async () => {
+        try {
+            await sequelize.authenticate();
+            console.log('Conexión exitosa');
+        } catch (error) {
+            console.log(error);
+        }
     }
 
     private middlewares = () => {

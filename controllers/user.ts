@@ -3,9 +3,14 @@ import { ReqUserBody } from '../dto/create-user.dto';
 import User from '../models/user';
 
 export const getUsers = async (req: Request, res: Response) => {
+    
+    const usuarios = await User.findAll({
+        attributes: ['id', 'nombre', 'email']
+    });
+    
     res.json({
         ok: true, 
-        msg: 'ola'
+        usuarios
     })
 }
 
@@ -16,18 +21,29 @@ export const addUser = async (req: Request<{},{},ReqUserBody,{}>, res: Response)
         await usuario.save();*/
 
         const usuario = await User.create(req.body);
-        usuario.validate();
+        usuario.validate(); // se llama opcionalmente
+
+
+        const { dataValues: { password, ..._usuario } } = usuario;
 
         res.status(201).json({
             ok: true,
-            usuario
+            usuario: _usuario
         });
 
     } catch (error: any) {
-        res.status(400).json({
-            ok: true,
-            errors: error.errors.map((e:any ) => ({ message: e.message, path: e.path }))
-        });
+        if (error.name === 'SequelizeValidationError'){
+            res.status(400).json({
+                ok: true,
+                msg: error.errors.map((e:any ) => ({ message: e.message, path: e.path }))
+            });
+        }
+        else {
+            res.status(400).json({
+                ok: true,
+                msg: 'Hable con el administrador'
+            });
+        }
  
     }  
 }

@@ -46,7 +46,7 @@ User.init({
         allowNull: false,
         validate: {
             isIn: {
-                args: [['ADMIN_ROLE', 'USER_ROLE']],
+                args: [['ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE']],
                 msg: 'Rol inválido. Debe ser alguno de estos: ADMIN_ROLE, USER_ROLE'
             }
         }

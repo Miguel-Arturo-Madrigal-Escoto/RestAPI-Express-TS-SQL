@@ -4,14 +4,14 @@ import { genSaltSync, hashSync } from 'bcryptjs';
 
 
 class User extends Model<InferAttributes<User>, InferCreationAttributes<User>> {
-    declare id: CreationOptional<number>;
-    declare nombre: string;
-    declare email: string;
-    declare password: string;
-    declare role:    string;
-    declare img: CreationOptional<string>;
-    declare google: CreationOptional<boolean>;
-    declare estado: boolean | null;
+    declare id:        CreationOptional<number>;
+    declare nombre:    string;
+    declare email:     string;
+    declare password:  string;
+    declare role:      string;
+    declare img:       CreationOptional<string>;
+    declare google:    CreationOptional<boolean>;
+    declare estado:    CreationOptional<boolean>;
 }
 
 User.init({
@@ -52,7 +52,7 @@ User.init({
         allowNull: false,
         validate: {
             isIn: {
-                args: [['ADMIN_ROLE', 'USER_ROLE']],
+                args: [['ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE']],
                 msg: 'Rol inválido. Debe ser alguno de estos: ADMIN_ROLE, USER_ROLE'
             }
         }

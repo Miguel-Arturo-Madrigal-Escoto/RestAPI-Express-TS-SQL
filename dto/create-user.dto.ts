@@ -1,14 +1,14 @@
 import { body, ValidationChain } from 'express-validator';
 import { existeEmail, existeRole } from '../helpers/validations';
 
-export interface ReqUserBody {
+export interface CreateUserBody {
     nombre: string;
     email:  string;
     password: string;
     role: string;
 }
 
-export const reqUserBodyValidation: ValidationChain[] = [
+export const createUserBodyValidation: ValidationChain[] = [
     body('nombre', 'El nombre es inválido').isAlpha(),
     body('email', 'El correo es inválido').isEmail()
     .custom(existeEmail),

@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.existeRole = exports.existeEmail = void 0;
+exports.existeUsuarioID = exports.existeRole = exports.existeEmail = void 0;
 const role_1 = __importDefault(require("../models/role"));
 const user_1 = __importDefault(require("../models/user"));
 const existeEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
@@ -29,4 +29,11 @@ const existeRole = (role) => __awaiter(void 0, void 0, void 0, function* () {
     return true;
 });
 exports.existeRole = existeRole;
+const existeUsuarioID = (id) => __awaiter(void 0, void 0, void 0, function* () {
+    const _usuario = yield user_1.default.findByPk(id);
+    if (!_usuario)
+        throw new Error('No existe un usuario con dicho id');
+    return true;
+});
+exports.existeUsuarioID = existeUsuarioID;
 //# sourceMappingURL=validations.js.map

@@ -12,3 +12,9 @@ export const existeRole = async (role: string) => {
     if (!_role) throw new Error('El rol no esta definido');
     return true;
 }
+
+export const existeUsuarioID = async (id: number) => {
+    const _usuario = await User.findByPk(id);
+    if (!_usuario) throw new Error('No existe un usuario con dicho id');
+    return true;
+}

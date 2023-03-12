@@ -27,7 +27,7 @@ exports.deleteUsers = exports.putUsers = exports.addUser = exports.getUsers = vo
 const user_1 = __importDefault(require("../models/user"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const usuarios = yield user_1.default.findAll({ attributes: ['nombre', 'email', 'role'] });
+        const usuarios = yield user_1.default.findAll({ attributes: ['id', 'nombre', 'email', 'role'] });
         res.status(200).json({
             ok: true,
             usuarios
@@ -71,7 +71,7 @@ const addUser = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 exports.addUser = addUser;
 const putUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const _b = req.body, { google, estado } = _b, usuario = __rest(_b, ["google", "estado"]);
+        const _b = req.body, { google, estado, id } = _b, usuario = __rest(_b, ["google", "estado", "id"]);
         const [affectedRows, _usuario] = yield Promise.all([
             user_1.default.update(usuario, { where: { id: +req.params.id } }),
             user_1.default.findByPk(+req.params.id, { attributes: ['nombre', 'email', 'role'] })

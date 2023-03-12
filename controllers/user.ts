@@ -7,7 +7,7 @@ export const getUsers = async (req: Request, res: Response) => {
     
     try {
         
-        const usuarios = await User.findAll({ attributes: ['nombre', 'email', 'role'] });
+        const usuarios = await User.findAll({ attributes: ['id', 'nombre', 'email', 'role'] });
 
         res.status(200).json({
             ok: true,
@@ -59,11 +59,11 @@ export const addUser = async (req: Request<{},{},CreateUserBody,{}>, res: Respon
 
 export const putUsers = async (req: Request<UpdateUserParams,{},UpdateUserBody,{}>, res: Response) => {
     try {
-        const { google, estado, ...usuario } = req.body;
+        const { google, estado, id, ...usuario } = req.body;
 
         const [affectedRows, _usuario] = await Promise.all([
-            User.update(usuario, { where: { id: +req.params.id  } }),
-            User.findByPk(+req.params.id, { attributes: ['nombre', 'email', 'role'] })
+            User.update(usuario, { where: { id: +req.params.id!  } }),
+            User.findByPk(+req.params.id!, { attributes: ['nombre', 'email', 'role'] })
         ]);
 
         res.status(200).json({

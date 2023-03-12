@@ -8,7 +8,7 @@ export interface CreateUserBody {
     role: string;
 }
 
-export const createUserBodyValidation: ValidationChain[] = [
+export const createUserValidation: ValidationChain[] = [
     body('email', 'El correo es inválido').isEmail()
     .custom(existeEmail),
     body('password', 'La contraseña no cumple con los requerimientos').isStrongPassword(),

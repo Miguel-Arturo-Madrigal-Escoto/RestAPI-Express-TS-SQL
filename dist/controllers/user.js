@@ -105,10 +105,25 @@ const putUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 });
 exports.putUsers = putUsers;
 const deleteUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
-    res.json({
-        ok: true,
-        msg: 'delete users'
-    });
+    try {
+        const { id } = req.params;
+        // const affectedRows = await User.destroy({ where: { id: +id! } });
+        const [affectedRows, usuario] = yield Promise.all([
+            user_1.default.update({ estado: false }, { where: { id: +id } }),
+            user_1.default.findByPk(+id, { attributes: ['nombre', 'email', 'role'] })
+        ]);
+        res.status(200).json({
+            ok: true,
+            affectedRows: affectedRows[0] || 0,
+            usuario
+        });
+    }
+    catch (error) {
+        res.status(400).json({
+            ok: true,
+            msg: 'Hable con el administrador'
+        });
+    }
 });
 exports.deleteUsers = deleteUsers;
 //# sourceMappingURL=user.js.map

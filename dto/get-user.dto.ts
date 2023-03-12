@@ -5,7 +5,7 @@ export interface GetUsersQuery {
     offset?: string;
 }
 
-export const getUserBodyValidation: ValidationChain[] = [
+export const getUserValidation: ValidationChain[] = [
     query('limit', 'El limite es inválido').optional().isNumeric(),
     query('offset', 'El offset es inválido').optional().isNumeric(),
 ]

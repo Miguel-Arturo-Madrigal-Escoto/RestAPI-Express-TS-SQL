@@ -1,5 +1,6 @@
 import { Request, Response } from 'express';
 import { CreateUserBody } from '../dto/create-user.dto';
+import { DeleteUserParams } from '../dto/delete-user.dto';
 import { GetUsersQuery } from '../dto/get-user.dto';
 import { UpdateUserBody, UpdateUserParams } from '../dto/update-user.dto';
 import User from '../models/user';
@@ -96,9 +97,26 @@ export const putUsers = async (req: Request<UpdateUserParams,{},UpdateUserBody,{
     }
 }
 
-export const deleteUsers = async (req: Request, res: Response) => {
-    res.json({
-        ok: true, 
-        msg: 'delete users'
-    })
+export const deleteUsers = async (req: Request<DeleteUserParams>, res: Response) => {
+    try {
+        const { id } = req.params;
+        // const affectedRows = await User.destroy({ where: { id: +id! } });
+        const [affectedRows, usuario] = await Promise.all([
+            User.update({ estado: false }, { where: { id: +id! } }),
+            User.findByPk(+id!, { attributes: ['nombre', 'email', 'role'] })
+        ]);
+
+
+        res.status(200).json({
+            ok: true,
+            affectedRows: affectedRows[0] || 0,
+            usuario
+        })
+        
+    } catch (error) {
+        res.status(400).json({
+            ok: true,
+            msg: 'Hable con el administrador'
+        });
+    }
 }

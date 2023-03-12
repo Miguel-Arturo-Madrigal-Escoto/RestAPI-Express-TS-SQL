@@ -1,9 +1,9 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.updateUserBodyValidation = void 0;
+exports.updateUserValidation = void 0;
 const express_validator_1 = require("express-validator");
 const validations_1 = require("../helpers/validations");
-exports.updateUserBodyValidation = [
+exports.updateUserValidation = [
     (0, express_validator_1.param)('id', 'No es un ID válido').notEmpty().isNumeric()
         .custom((id) => (0, validations_1.existeUsuarioID)(+id)),
     (0, express_validator_1.body)('email', 'El correo es inválido').isEmail(),

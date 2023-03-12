@@ -9,7 +9,6 @@ export interface CreateUserBody {
 }
 
 export const createUserBodyValidation: ValidationChain[] = [
-    body('nombre', 'El nombre es inválido').isAlpha(),
     body('email', 'El correo es inválido').isEmail()
     .custom(existeEmail),
     body('password', 'La contraseña no cumple con los requerimientos').isStrongPassword(),

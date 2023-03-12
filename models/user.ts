@@ -23,11 +23,6 @@ User.init({
     nombre: {
         type: DataTypes.STRING,
         allowNull: false,
-        validate: {
-            isAlpha: {
-                msg: 'Nombre inválido'
-            }
-        }
     },
     email: {
         type: DataTypes.STRING,

@@ -19,7 +19,6 @@ export interface UpdateUserParams {
 export const updateUserBodyValidation: ValidationChain[] = [
     param('id', 'No es un ID válido').notEmpty().isNumeric()
     .custom((id: string) => existeUsuarioID(+id)),
-    body('nombre', 'El nombre es inválido').isAlpha(),
     body('email', 'El correo es inválido').isEmail(),
     body('password', 'La contraseña no cumple con los requerimientos').isStrongPassword(),
     body('role', 'El rol es inválido').optional().custom(existeRole)

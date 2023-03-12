@@ -1,17 +1,25 @@
 import { Request, Response } from 'express';
 import { CreateUserBody } from '../dto/create-user.dto';
+import { GetUsersQuery } from '../dto/get-user.dto';
 import { UpdateUserBody, UpdateUserParams } from '../dto/update-user.dto';
 import User from '../models/user';
 
-export const getUsers = async (req: Request, res: Response) => {
+export const getUsers = async (req: Request<{},{},{},GetUsersQuery>, res: Response) => {
     
     try {
-        
-        const usuarios = await User.findAll({ attributes: ['id', 'nombre', 'email', 'role'] });
+        const {  limit = 5, offset = 0 } = req.query;
+        const query = { estado: true };
+
+        const [usuarios, total] = await Promise.all([
+            User.findAll({ attributes: ['id', 'nombre', 'email', 'role'], offset: +offset, limit: +limit, where: query }),
+            User.count({ where: query })
+        ]);
+
 
         res.status(200).json({
             ok: true,
-            usuarios
+            usuarios,
+            total
         })
 
     } catch (error) {

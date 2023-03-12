@@ -27,10 +27,16 @@ exports.deleteUsers = exports.putUsers = exports.addUser = exports.getUsers = vo
 const user_1 = __importDefault(require("../models/user"));
 const getUsers = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const usuarios = yield user_1.default.findAll({ attributes: ['id', 'nombre', 'email', 'role'] });
+        const { limit = 5, offset = 0 } = req.query;
+        const query = { estado: true };
+        const [usuarios, total] = yield Promise.all([
+            user_1.default.findAll({ attributes: ['id', 'nombre', 'email', 'role'], offset: +offset, limit: +limit, where: query }),
+            user_1.default.count({ where: query })
+        ]);
         res.status(200).json({
             ok: true,
-            usuarios
+            usuarios,
+            total
         });
     }
     catch (error) {

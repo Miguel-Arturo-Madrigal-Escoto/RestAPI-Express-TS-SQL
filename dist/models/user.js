@@ -17,11 +17,6 @@ User.init({
     nombre: {
         type: sequelize_1.DataTypes.STRING,
         allowNull: false,
-        validate: {
-            isAlpha: {
-                msg: 'Nombre inválido'
-            }
-        }
     },
     email: {
         type: sequelize_1.DataTypes.STRING,

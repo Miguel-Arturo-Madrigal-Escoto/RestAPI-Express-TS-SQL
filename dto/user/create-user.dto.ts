@@ -1,5 +1,5 @@
 import { body, ValidationChain } from 'express-validator';
-import { existeEmail, existeRole } from '../helpers/validations';
+import { existeEmail, existeRole } from '../../helpers/validations';
 
 export interface CreateUserBody {
     nombre: string;

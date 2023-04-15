@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { getUsers, addUser, putUsers, deleteUsers } from '../controllers/user';
-import { createUserValidation } from '../dto/create-user.dto';
-import { deleteUserValidation } from '../dto/delete-user.dto';
-import { getUserValidation } from '../dto/get-user.dto';
-import { updateUserValidation } from '../dto/update-user.dto';
+
 import { validate } from '../middlewares/validate';
+import { getUserValidation } from '../dto/user/get-user.dto';
+import { createUserValidation } from '../dto/user/create-user.dto';
+import { updateUserValidation } from '../dto/user/update-user.dto';
+import { deleteUserValidation } from '../dto/user/delete-user.dto';
 
 const router = Router();
 

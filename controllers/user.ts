@@ -1,9 +1,10 @@
 import { Request, Response } from 'express';
-import { CreateUserBody } from '../dto/create-user.dto';
-import { DeleteUserParams } from '../dto/delete-user.dto';
-import { GetUsersQuery } from '../dto/get-user.dto';
-import { UpdateUserBody, UpdateUserParams } from '../dto/update-user.dto';
+import { GetUsersQuery } from '../dto/user/get-user.dto';
+
 import User from '../models/user';
+import { CreateUserBody } from '../dto/user/create-user.dto';
+import { UpdateUserBody, UpdateUserParams } from '../dto/user/update-user.dto';
+import { DeleteUserParams } from '../dto/user/delete-user.dto';
 
 export const getUsers = async (req: Request<{},{},{},GetUsersQuery>, res: Response) => {
     

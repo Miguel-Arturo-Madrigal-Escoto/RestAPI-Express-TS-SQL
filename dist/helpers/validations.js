@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.existeUsuarioID = exports.existeRole = exports.existeEmail = void 0;
+exports.existeUsuario = exports.existeUsuarioID = exports.existeRole = exports.existeEmail = void 0;
 const role_1 = __importDefault(require("../models/role"));
 const user_1 = __importDefault(require("../models/user"));
 const existeEmail = (email) => __awaiter(void 0, void 0, void 0, function* () {
@@ -36,4 +36,11 @@ const existeUsuarioID = (id) => __awaiter(void 0, void 0, void 0, function* () {
     return true;
 });
 exports.existeUsuarioID = existeUsuarioID;
+const existeUsuario = (email) => __awaiter(void 0, void 0, void 0, function* () {
+    const _usuario = yield user_1.default.findOne({ where: { email, estado: true } });
+    if (!_usuario)
+        throw new Error(`Correo y/o contraseña incorrecta`);
+    return true;
+});
+exports.existeUsuario = existeUsuario;
 //# sourceMappingURL=validations.js.map

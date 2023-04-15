@@ -2,11 +2,11 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = require("express");
 const user_1 = require("../controllers/user");
-const create_user_dto_1 = require("../dto/create-user.dto");
-const delete_user_dto_1 = require("../dto/delete-user.dto");
-const get_user_dto_1 = require("../dto/get-user.dto");
-const update_user_dto_1 = require("../dto/update-user.dto");
 const validate_1 = require("../middlewares/validate");
+const get_user_dto_1 = require("../dto/user/get-user.dto");
+const create_user_dto_1 = require("../dto/user/create-user.dto");
+const update_user_dto_1 = require("../dto/user/update-user.dto");
+const delete_user_dto_1 = require("../dto/user/delete-user.dto");
 const router = (0, express_1.Router)();
 router.get('/', get_user_dto_1.getUserValidation, validate_1.validate, user_1.getUsers);
 router.post('/', create_user_dto_1.createUserValidation, validate_1.validate, user_1.addUser);

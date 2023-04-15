@@ -1,5 +1,5 @@
 import { ValidationChain, param } from "express-validator";
-import { existeUsuarioID } from "../helpers/validations";
+import { existeUsuarioID } from "../../helpers/validations";
 
 export interface DeleteUserParams {
     id?: number;

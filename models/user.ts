@@ -48,7 +48,7 @@ User.init({
         validate: {
             isIn: {
                 args: [['ADMIN_ROLE', 'USER_ROLE', 'VENTAS_ROLE']],
-                msg: 'Rol inválido. Debe ser alguno de estos: ADMIN_ROLE, USER_ROLE'
+                msg: 'Rol inválido. Debe ser alguno de estos: ADMIN_ROLE, USER_ROLE, VENTAS_ROLE'
             }
         }
     },
@@ -71,5 +71,8 @@ User.init({
     tableName: 'usuarios',
     timestamps: false
 });
+
+// create table from Sequelize Model
+(async () => await User.sync())()
 
 export default User;

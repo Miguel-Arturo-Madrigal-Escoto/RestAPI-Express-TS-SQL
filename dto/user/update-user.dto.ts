@@ -1,5 +1,6 @@
 import { ValidationChain, body, param } from 'express-validator';
-import { existeRole, existeUsuarioID } from '../helpers/validations';
+import { existeRole, existeUsuarioID } from '../../helpers/validations';
+
 
 export interface UpdateUserBody {
     id?:     string;

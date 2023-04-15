@@ -36,13 +36,15 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importStar(require("express"));
+const config_1 = __importDefault(require("../database/config"));
 const cors_1 = __importDefault(require("cors"));
 const user_1 = __importDefault(require("../routes/user"));
-const config_1 = __importDefault(require("../database/config"));
+const auth_1 = __importDefault(require("../routes/auth"));
 class Server {
     constructor() {
         this.serverRoutes = {
-            user: '/api/users'
+            user: '/api/users',
+            auth: '/api/auth'
         };
         this.dbConnection = () => __awaiter(this, void 0, void 0, function* () {
             try {
@@ -59,6 +61,7 @@ class Server {
         };
         this.routes = () => {
             this.app.use(this.serverRoutes.user, user_1.default);
+            this.app.use(this.serverRoutes.auth, auth_1.default);
         };
         this.listen = () => {
             this.app.listen(this.port, () => {

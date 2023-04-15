@@ -1,13 +1,15 @@
 import express, { Application, json } from 'express';
+import sequelize from '../database/config';
 import cors from 'cors';
 import userRouter from '../routes/user';
-import sequelize from '../database/config';
+import authRouter from '../routes/auth';
 
 class Server {
     private app: Application;
     private port: string;
     private serverRoutes = {
-        user: '/api/users'
+        user: '/api/users',
+        auth: '/api/auth'
     }
 
     constructor(){
@@ -37,6 +39,7 @@ class Server {
 
     private routes = () => {
         this.app.use(this.serverRoutes.user, userRouter);
+        this.app.use(this.serverRoutes.auth, authRouter);
     }
 
     public listen = () => {
